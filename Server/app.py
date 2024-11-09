@@ -82,37 +82,48 @@ def protected():
 
     return jsonify({"user": {"username": user['username'], "role": user['role']}}), 200
 
-# Import necessary libraries
-import requests
+
+
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from flask_pymongo import PyMongo
 
 
-# Replace with your LocationIQ API key
-LOCATIONIQ_API_KEY = 'pk.ac36f8fe4a35ed3d9cd59131b2f55e87'
+# Route to handle form submission
+@app.route('/submit-form', methods=['POST'])
+def submit_form():
+    try:
+        # Get form data from request
+        data = request.json
+        
+        # Extracting data
+        name = data.get('name')
+        country = data.get('country')
+        age = data.get('age')
+        family_members = data.get('familyMembers')
+        injuries = data.get('injuries')
 
-@app.route('/nearest_healthcare', methods=['POST'])
-def nearest_healthcare():
-    data = request.json
-    latitude = data.get('latitude')
-    longitude = data.get('longitude')
+        # Optional: validate data (check for missing values, etc.)
+        if not name or not country or not age or not family_members:
+            return jsonify({"error": "All fields are required"}), 400
+        
+        # Prepare data to insert into MongoDB
+        form_data = {
+            'name': name,
+            'country': country,
+            'age': age,
+            'family_members': family_members,
+            'injuries': injuries
+        }
 
-    # Define parameters for LocationIQ Nearby API request
-    url = f'https://us1.locationiq.com/v1/nearby.php'
-    params = {
-        'key': LOCATIONIQ_API_KEY,
-        'lat': latitude,
-        'lon': longitude,
-        'tag': 'hospital',  # Specify 'hospital' tag to find healthcare facilities
-        'radius': 5000,     # Search within a 5km radius
-        'format': 'json'    # Get results in JSON format
-    }
+        # Insert into MongoDB
+        mongo.db.forms.insert_one(form_data)
 
-    # Make the API request
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        return jsonify(response.json()), 200
-    else:
-        return jsonify({"error": "Failed to fetch data"}), 500
+        return jsonify({"message": "Form submitted successfully!"}), 201
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"error": "Something went wrong"}), 500
 
 
 

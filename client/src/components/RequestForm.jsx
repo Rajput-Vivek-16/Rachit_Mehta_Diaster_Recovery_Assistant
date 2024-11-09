@@ -1,10 +1,10 @@
-// FormPage.js
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
 function RequestForm() {
     const [formData, setFormData] = useState({
         name: '',
-        city: '',
+        country: '',
         age: '',
         familyMembers: '',
         injuries: ''
@@ -18,12 +18,34 @@ function RequestForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
+        
+        // Submit form data to the backend
+        try {
+            const response = await fetch('http://localhost:5000/submit-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+            if (response.status === 201) {
+                alert(result.message);  // Form submitted successfully
+            } else {
+                alert(result.error || "Something went wrong");
+            }
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('There was an error submitting your form');
+        }
+
+        // Clear the form after submission
         setFormData({
             name: '',
-            city: '',
+            country: '',
             age: '',
             familyMembers: '',
             injuries: ''
@@ -47,11 +69,11 @@ function RequestForm() {
                         />
                     </div>
                     <div>
-                        <label className="block font-semibold text-black">City:</label>
+                        <label className="block font-semibold text-black">Country:</label>
                         <input
                             type="text"
-                            name="city"
-                            value={formData.city}
+                            name="country"
+                            value={formData.country}
                             onChange={handleChange}
                             required
                             className="w-full p-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
@@ -69,7 +91,7 @@ function RequestForm() {
                         />
                     </div>
                     <div>
-                        <label className="block font-semibold text-black">Number of Family Members:</label>
+                        <label className="block font-semibold text-black">Number of Affected People:</label>
                         <input
                             type="number"
                             name="familyMembers"
@@ -80,7 +102,7 @@ function RequestForm() {
                         />
                     </div>
                     <div>
-                        <label className="block font-semibold text-black">Injuries:</label>
+                        <label className="block font-semibold text-black">Request:</label>
                         <textarea
                             name="injuries"
                             value={formData.injuries}
@@ -97,10 +119,10 @@ function RequestForm() {
                     </button>
                 </form>
                 <p className="text-center text-black mt-4">
-          <Link to="/" className="text-red-600 hover:underline">
-            Back to Home
-          </Link>
-        </p>
+                    <Link to="/" className="text-red-600 hover:underline">
+                        Back to Home
+                    </Link>
+                </p>
             </div>
         </div>
     );
