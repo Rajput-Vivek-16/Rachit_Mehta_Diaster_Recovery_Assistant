@@ -6,7 +6,7 @@ function DisasterNews() {
   const API_KEY = import.meta.env.VITE_APP_API_KEY; // Properly declared as a constant
 
   useEffect(() => {
-    fetch(`https://newsapi.org/v2/everything?q=disaster&apiKey=${API_KEY}`)
+    fetch(`https://newsapi.org/v2/everything?q=disaster&apiKey=${'2bfc2d4881a84f0eb3807b5d0b18a660'}`)
       .then(response => response.json())
       .then(data => {
         if (data.articles) {
