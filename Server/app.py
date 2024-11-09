@@ -20,15 +20,22 @@ bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 mongo = PyMongo(app)
 
-@app.route('/')
+@app.route('/home')
 def home():
-    return 'Hello, World!'
+    try:
+        # Attempt to check the MongoDB connection
+        mongo.db.command('ping')  # This is a simple command to check MongoDB status
+        return "MongoDB connected successfully!"
+    except ServerSelectionTimeoutError:
+        return "Failed to connect to MongoDB."
+
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.json
     username = data['username']
     password = data['password']
     role = data.get('role', 'community_user')
+    country= data['Country']
 
     # Hash the password
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -37,8 +44,15 @@ def signup():
     user = {
         "username": username,
         "password": hashed_password,
-        "role": role
+        "role": role,
+        "Country": country,
     }
+
+    # Check if the user already exists
+    existing_user = mongo.db.users.find_one({"username": username})
+    if existing_user:
+        return jsonify({"message": "Username already exists"}), 400
+
     mongo.db.users.insert_one(user)
 
     return jsonify({"message": "User created successfully"}), 201
@@ -69,6 +83,7 @@ def protected():
     user = mongo.db.users.find_one({"_id": ObjectId(current_user_id)})
 
     return jsonify({"user": {"username": user['username'], "role": user['role']}}), 200
+
 def get_disaster_advice(user_input):
     # Define a structured prompt for serious, step-by-step advice
     structured_prompt = f"Provide detailed, step-by-step safety instructions for a disaster situation, including preparation, immediate actions, and post-disaster advice: {user_input}"
@@ -107,3 +122,57 @@ def chat():
 if __name__ == '__main__':
     app.run(debug=True)
     
+
+
+
+
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from flask_pymongo import PyMongo
+
+
+# Route to handle form submission
+@app.route('/submit-form', methods=['POST'])
+def submit_form():
+    try:
+        # Get form data from request
+        data = request.json
+        
+        # Extracting data
+        name = data.get('name')
+        country = data.get('country')
+        age = data.get('age')
+        family_members = data.get('familyMembers')
+        injuries = data.get('injuries')
+
+        # Optional: validate data (check for missing values, etc.)
+        if not name or not country or not age or not family_members:
+            return jsonify({"error": "All fields are required"}), 400
+        
+        # Prepare data to insert into MongoDB
+        form_data = {
+            'name': name,
+            'country': country,
+            'age': age,
+            'family_members': family_members,
+            'injuries': injuries
+        }
+
+        # Insert into MongoDB
+        mongo.db.forms.insert_one(form_data)
+
+        return jsonify({"message": "Form submitted successfully!"}), 201
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"error": "Something went wrong"}), 500
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+

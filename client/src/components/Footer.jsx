@@ -35,8 +35,8 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Quick Links</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className = "mb-4">
-                                    <NavLink to="/mapview" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
-                                            Map View
+                                    <NavLink to="/nearest-health-care" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
+                                            Nearest Health care
                                     </NavLink>
                                 </li>
                                 <li>

@@ -8,7 +8,7 @@ import {Outlet, useLocation} from 'react-router-dom'
 
 function App() {
   const location = useLocation();
-  const showHeaderAndFooter = location.pathname !== '/login' && location.pathname !== '/signup'; // Check if the route is '/login or signup
+  const showHeaderAndFooter = location.pathname !== '/login' && location.pathname !== '/signup' && location.pathname != '/request-form'; // Check if the route is '/login or signup
 
   return (
     <div>
