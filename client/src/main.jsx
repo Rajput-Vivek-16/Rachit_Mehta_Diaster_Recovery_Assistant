@@ -8,10 +8,12 @@ import Contact from './components/Contact.jsx';
 import Alerts from './components/Alerts.jsx'
 import Login from './components/LoginPage.jsx'
 import Signup from './components/SignUpPage.jsx'
+import NearestHealthcare from './components/NearestHealthcare';
 import MapView from './components/MapView.jsx';
 import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import RequestForm from './components/RequestForm.jsx';
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +27,9 @@ const router = createBrowserRouter(
       <Route path = 'login'  element = {<Login/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
+      <Route path = 'NearestHealth'  element = {<NearestHealthcare/>} />
+
+
     </Route>
   )
 )
