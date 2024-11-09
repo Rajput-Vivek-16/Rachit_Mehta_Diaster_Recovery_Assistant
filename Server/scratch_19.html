@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Prediction</title>
+</head>
+<body>
+    <h1>Supply Prediction</h1>
+
+    <form action="/predict" method="POST">
+        <label for="feature1">Feature 1:</label>
+        <input type="text" id="feature1" name="feature1" required><br><br>
+
+        <label for="feature2">Feature 2:</label>
+        <input type="text" id="feature2" name="feature2" required><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+        <h2>{{ prediction_text }}</h2>
+    {% endif %}
+</body>
+</html>
