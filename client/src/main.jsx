@@ -13,6 +13,7 @@ import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import RequestForm from './components/RequestForm.jsx';
 import AdminPage from './components/AdminPage.jsx';
+import Chatbot from './components/Chatbot';
 
 
 const router = createBrowserRouter(
@@ -27,6 +28,8 @@ const router = createBrowserRouter(
       <Route path = 'admin'  element = {<AdminPage/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
+      <Route path = 'chat'  element = {<Chatbot/>} />
+
       <Route path = 'nearest-health-care'  element = {<NearestHealthcare/>} />
     </Route>
   )

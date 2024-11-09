@@ -1,17 +1,26 @@
 // src/components/AdminPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import RequestList from './RequestList';
 
 const AdminPage = () => {
-  const [totalSupply, setTotalSupply] = useState(100);
-  const [totalDemand, setTotalDemand] = useState(80);
-  const [status, setStatus] = useState('Active');
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [totalDemand, setTotalDemand] = useState(0);
+  const [status, setStatus] = useState('');
   const [totalRequests, setTotalRequests] = useState(0);
   const [totalResponded, setTotalResponded] = useState(0);
 
-  const calculateSupply = () => {
-    setTotalSupply(totalSupply - 10); // Example calculation
-  };
+  useEffect(() => {
+    // Fetch all necessary data for the dashboard from a single backend endpoint
+    axios.get('http://localhost:5000/predict_supplies')
+      .then(response => {
+        console.log(data)
+        const data = response;
+        setTotalSupply(data['predicted_supplies']);
+        
+      })
+      .catch(error => console.error("Error fetching dashboard data:", error));
+  }, []);
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
@@ -22,13 +31,7 @@ const AdminPage = () => {
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-xl font-semibold">Supply</h2>
           <p className="mt-2">Total Supply: {totalSupply}</p>
-          <p>Total Demand: {totalDemand}</p>
-          <button
-            onClick={calculateSupply}
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-          >
-            Calculate Supply
-          </button>
+          
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg">
