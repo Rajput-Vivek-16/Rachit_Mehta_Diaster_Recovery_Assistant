@@ -8,6 +8,7 @@ import Contact from './components/Contact.jsx';
 import Alerts from './components/Alerts.jsx'
 import Login from './components/LoginPage.jsx'
 import Signup from './components/SignUpPage.jsx'
+import NearestHealthcare from './components/NearestHealthcare';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,9 @@ const router = createBrowserRouter(
       <Route path = 'login'  element = {<Login/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
+      <Route path = 'NearestHealth'  element = {<NearestHealthcare/>} />
+
+
     </Route>
   )
 )
