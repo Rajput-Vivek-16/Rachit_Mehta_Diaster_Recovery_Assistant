@@ -30,10 +30,10 @@ function Header(){
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to = "/mapview" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
+                  <NavLink to = "/nearest-health-care" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
                   hover:text-orange-700 hover:focus:border-b  hover:border-red-500 duration-200 lg:p-0 py-2
                   ${isActive ? "text-orange-700" : "text-gray-700"}`}>
-                    Map view
+                    Nearest Health Care
                   </NavLink>
                 </li>
                 <li>

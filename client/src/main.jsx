@@ -9,7 +9,6 @@ import Alerts from './components/Alerts.jsx'
 import Login from './components/LoginPage.jsx'
 import Signup from './components/SignUpPage.jsx'
 import NearestHealthcare from './components/NearestHealthcare';
-import MapView from './components/MapView.jsx';
 import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import RequestForm from './components/RequestForm.jsx';
@@ -20,16 +19,13 @@ const router = createBrowserRouter(
     <Route path = '/'  element = {<App/>}>
       <Route path = ''  element = {<Home/>} />
       <Route path = 'alert'  element = {<Alerts/>} />
-      <Route path = 'mapview'  element = {<MapView/>} />
       <Route path = 'userfeedback'  element = {<UserFeedback/>} />
       <Route path = 'accessibility-feature'  element = {<AccessibilityFeature/>} />
       <Route path = 'request-form'  element = {<RequestForm/>} />
       <Route path = 'login'  element = {<Login/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
-      <Route path = 'NearestHealth'  element = {<NearestHealthcare/>} />
-
-
+      <Route path = 'nearest-health-care'  element = {<NearestHealthcare/>} />
     </Route>
   )
 )

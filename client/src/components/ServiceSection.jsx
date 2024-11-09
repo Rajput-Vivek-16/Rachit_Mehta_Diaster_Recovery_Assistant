@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-function HeroSection() {
+function ServiceSection() {
   return (
     <div className="relative h-[85vh] bg-center bg-cover bg-no-repeat" style={{ backgroundImage: `url('https://searchengineland.com/wp-content/seloads/2024/05/How-to-avoid-an-SEO-disaster-during-a-website-redesign-A-comprehensive-guide.png')` }}>
       <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -21,4 +21,5 @@ function HeroSection() {
   );
 }
 
-export default HeroSection;
+export default ServiceSection;
+// serviceSection

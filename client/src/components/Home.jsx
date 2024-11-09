@@ -1,12 +1,12 @@
 // import { MapContext } from '@react-google-maps/api';
 import React from 'react'
-import HeroSection from './HeroSection.jsx';
+import ServiceSection from './ServiceSection.jsx';
 import DisasterNews from './DisasterNews.jsx';
 
 function Home(){
     return(
     <>
-        <HeroSection />
+        <ServiceSection />
         <DisasterNews />
     </>
     )
