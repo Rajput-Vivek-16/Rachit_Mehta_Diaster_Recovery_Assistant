@@ -15,6 +15,17 @@ app = Flask(__name__)
 CORS(app)
 app.config['JWT_SECRET_KEY'] = '5e7e8854283ed2224272473d06c06e5883643b8c9a149e8af2bafd8a42d0f89aaf897a011d19d1d8fbe3d2c707b479dfbc4e639c421c36444f114912b7fefe4c81938974b4c592dfb43df8dbde86717fca2839dc1600217afbd0d8d3dc1c86334ccc8c4ca52a28266c99d1856d6c854a3d2e897803817e998bbdae825a4d4525f3e1f8e114e7937152594a1f60ed043b142d9f45e0409cf43a0422cae94f9da9134dbded6e37bc0267addac0bf7cafc3ad7a71d89561e219166e7cab3f05b4065024562cec6a20f9a60b9c1123752a468e1b9fb8eda5bccf92e228d8c57b64e3723e274341b6a62f11eb7082e1c105d94f6213a780c62c5646c8d19ad1b97418'  # Replace with a strong key in production
 app.config["MONGO_URI"] = "mongodb://localhost:27017"  # Set up MongoDB URI
+from bson.objectid import ObjectId
+from pymongo.errors import ServerSelectionTimeoutError
+from flask_cors import CORS  # Import CORS
+
+app = Flask(__name__)
+
+# Enable CORS for all routes and all domains
+CORS(app)
+
+app.config['JWT_SECRET_KEY'] = 'your-secret-key'
+app.config["MONGO_URI"] = "mongodb://localhost:27017/Disaster_Recovery"
 
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -83,7 +94,6 @@ def protected():
     user = mongo.db.users.find_one({"_id": ObjectId(current_user_id)})
 
     return jsonify({"user": {"username": user['username'], "role": user['role']}}), 200
-
 def get_disaster_advice(user_input):
     # Define a structured prompt for serious, step-by-step advice
     structured_prompt = f"Provide detailed, step-by-step safety instructions for a disaster situation, including preparation, immediate actions, and post-disaster advice: {user_input}"
@@ -122,7 +132,6 @@ def chat():
 if __name__ == '__main__':
     app.run(debug=True)
     
-
 
 
 
@@ -175,4 +184,3 @@ def submit_form():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
