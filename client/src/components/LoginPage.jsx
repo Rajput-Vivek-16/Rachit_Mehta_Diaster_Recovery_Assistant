@@ -38,6 +38,11 @@ const LoginPage = () => {
             Sign-up
           </Link>
         </p>
+        <p className="text-center text-black mt-4">
+          <Link to="/" className="text-red-600 hover:underline">
+            Back to Home
+          </Link>
+        </p>
       </div>
     </div>
   );
