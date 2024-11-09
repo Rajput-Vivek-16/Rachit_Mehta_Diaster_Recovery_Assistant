@@ -100,21 +100,26 @@ const HospitalFinder = () => {
     popupAnchor: [0, -24],
   });
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div className="text-red-500 text-xl font-semibold">Loading...</div>;
+  if (error) return <div className="text-red-500 text-xl font-semibold">Error: {error.message}</div>;
 
   return (
-    <div>
-      <h1>Nearby Hospitals</h1>
-      <ul>
+    <div className="text-white bg-gray-900 p-8 text-center">
+      <h1 className="text-2xl font-bold text-red-500">Nearby Hospitals</h1>
+      <ul className="list-none p-0 m-4 text-red-400 text-lg">
         {hospitals.slice(0, 3).map((hospital, index) => (
-          <li key={index}>
+          <li key={index} className="my-2">
             {hospital.name} - {hospital.distance.toFixed(2)} km
           </li>
         ))}
       </ul>
       {userLocation && (
-        <MapContainer center={[userLocation.latitude, userLocation.longitude]} zoom={12} style={{ height: '500px', width: '100%' }}>
+        <MapContainer
+          center={[userLocation.latitude, userLocation.longitude]}
+          zoom={12}
+          style={{ height: '500px', width: '100%' }}
+          className="rounded-lg shadow-lg border-2 border-red-500"
+        >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
