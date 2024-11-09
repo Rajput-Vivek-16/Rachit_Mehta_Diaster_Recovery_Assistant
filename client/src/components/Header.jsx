@@ -6,11 +6,11 @@ function Header(){
         <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2 mx-auto max-w-screen-xl'>
           <div className="flex flex-wrap justify-between items-center">
             <Link to="/" className="flex items-center">
-              {/* <img
-                src=""
+              <img
+                src="https://m.media-amazon.com/images/I/718XLB6HowL._SL1500_.jpg"
                 className="mr-3 h-6"
                 alt="Logo"
-                /> */}
+                />
             </Link>
   
             <div className=" hidden lg:flex justify-between  items-center w-full lg:w-auto lg:order-1" id="mobile-menu-2">
