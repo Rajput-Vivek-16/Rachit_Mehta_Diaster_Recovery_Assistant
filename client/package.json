@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "leaflet": "^1.9.4",
+=======
+    "@react-google-maps/api": "^2.20.3",
+>>>>>>> 0e720efa5b59b7389e0abfb0853f6f99692aa719
     "mapbox-gl": "^1.13.3",
     "plotly.js": "^2.35.2",
     "react": "^18.3.1",

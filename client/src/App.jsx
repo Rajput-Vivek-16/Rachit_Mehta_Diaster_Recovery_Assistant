@@ -4,18 +4,19 @@ import viteLogo from '/vite.svg'
 import React from 'react'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useLocation} from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const location = useLocation();
+  const showHeaderAndFooter = location.pathname !== '/login' && location.pathname !== '/signup'; // Check if the route is '/login or signup
 
   return (
-    <>
-    <Header/>
+    <div>
+    {showHeaderAndFooter && <Header/> }
     <Outlet/>
-    <Footer/>
-    </>
+    {showHeaderAndFooter && <Footer/> }
+    </div>
   )
 }
 
-export default App
+export default App;

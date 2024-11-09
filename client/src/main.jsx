@@ -8,13 +8,22 @@ import Contact from './components/Contact.jsx';
 import Alerts from './components/Alerts.jsx'
 import Login from './components/LoginPage.jsx'
 import Signup from './components/SignUpPage.jsx'
+<<<<<<< HEAD
 import NearestHealthcare from './components/NearestHealthcare';
+=======
+import MapView from './components/MapView.jsx';
+import UserFeedback from './components/UserFeedback.jsx';
+import AccessibilityFeature from './components/AccessibilityFeature.jsx';
+>>>>>>> 0e720efa5b59b7389e0abfb0853f6f99692aa719
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path = '/'  element = {<App/>}>
       <Route path = ''  element = {<Home/>} />
       <Route path = 'alert'  element = {<Alerts/>} />
+      <Route path = 'mapview'  element = {<MapView/>} />
+      <Route path = 'userfeedback'  element = {<UserFeedback/>} />
+      <Route path = 'accessibility-feature'  element = {<AccessibilityFeature/>} />
       <Route path = 'login'  element = {<Login/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
