@@ -11,6 +11,7 @@ import Signup from './components/SignUpPage.jsx'
 import MapView from './components/MapView.jsx';
 import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
+import RequestForm from './components/RequestForm.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path = 'mapview'  element = {<MapView/>} />
       <Route path = 'userfeedback'  element = {<UserFeedback/>} />
       <Route path = 'accessibility-feature'  element = {<AccessibilityFeature/>} />
+      <Route path = 'request-form'  element = {<RequestForm/>} />
       <Route path = 'login'  element = {<Login/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />

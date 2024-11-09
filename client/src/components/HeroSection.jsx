@@ -11,8 +11,8 @@ function HeroSection() {
             <Link to="/signup" className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition transform hover:scale-105">
               Get Started
             </Link>
-            <Link to="/accessibility-feature" className="px-6 py-2 border border-white text-white rounded hover:bg-white hover:text-black transition transform hover:scale-105">
-              Learn More
+            <Link to="/request-form" className="px-6 py-2 border border-white text-black rounded bg-white hover:text-black transition transform hover:scale-105">
+              Request Form
             </Link>
           </div>
         </div>

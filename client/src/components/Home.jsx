@@ -3,7 +3,6 @@ import React from 'react'
 import HeroSection from './HeroSection.jsx';
 import DisasterNews from './DisasterNews.jsx';
 
-
 function Home(){
     return(
     <>
