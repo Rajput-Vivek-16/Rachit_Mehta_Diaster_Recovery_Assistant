@@ -14,6 +14,7 @@ import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import Chatbot from './components/ChatBot.jsx';
 import RequestForm from './components/RequestForm.jsx';
 import AdminPage from './components/AdminPage.jsx';
+import Chatbot from './components/ChatBot.jsx';
 
 
 const router = createBrowserRouter(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
       <Route path = 'chat'  element = {<Chatbot/>} />
+
       <Route path = 'nearest-health-care'  element = {<NearestHealthcare/>} />
     </Route>
   )
