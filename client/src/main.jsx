@@ -14,7 +14,6 @@ import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import Chatbot from './components/ChatBot.jsx';
 import RequestForm from './components/RequestForm.jsx';
 import AdminPage from './components/AdminPage.jsx';
-import Chatbot from './components/ChatBot.jsx';
 
 
 const router = createBrowserRouter(

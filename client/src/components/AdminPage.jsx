@@ -1,4 +1,3 @@
-// src/components/AdminPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RequestList from './RequestList';
@@ -11,16 +10,21 @@ const AdminPage = () => {
   const [totalResponded, setTotalResponded] = useState(0);
 
   useEffect(() => {
-    // Fetch all necessary data for the dashboard from a single backend endpoint
+    // Fetch data from Flask backend
     axios.get('http://localhost:5000/predict_supplies')
       .then(response => {
-        console.log(data)
-        const data = response;
-        setTotalSupply(data['predicted_supplies']);
-        
+        console.log(response.data);  // Log the response to inspect it
+        setTotalSupply(response.data.predicted_supplies);  // Set the predicted supply value
       })
       .catch(error => console.error("Error fetching dashboard data:", error));
-  }, []);
+  }, []); // Empty dependency array ensures this only runs once on mount
+
+  const calculateSupply = () => {
+    // Placeholder for supply calculation logic
+    console.log('Calculating supply...');
+    // You can add your calculation logic here, for example:
+    setTotalSupply(totalSupply + 100); // Just an example, replace with your logic
+  };
 
   return (
     <div className="p-4 md:p-8 bg-gray-100 min-h-screen">
@@ -31,17 +35,13 @@ const AdminPage = () => {
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
           <h2 className="text-lg md:text-xl font-semibold">Supply</h2>
           <p className="mt-2">Total Supply: {totalSupply}</p>
-<<<<<<< HEAD
-          
-=======
           <p>Total Demand: {totalDemand}</p>
           <button
-            onClick={calculateSupply}
+            onClick={calculateSupply} // Now it will work
             className="mt-4 bg-red-500 text-white py-2 px-4 rounded w-full sm:w-auto"
           >
             Calculate Supply
           </button>
->>>>>>> 7c5f19bc63a6bfe2d6aa71f2409c587116c833b1
         </div>
 
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
