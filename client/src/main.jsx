@@ -12,6 +12,7 @@ import NearestHealthcare from './components/NearestHealthcare';
 import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
 import RequestForm from './components/RequestForm.jsx';
+import AdminPage from './components/AdminPage.jsx';
 
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path = 'accessibility-feature'  element = {<AccessibilityFeature/>} />
       <Route path = 'request-form'  element = {<RequestForm/>} />
       <Route path = 'login'  element = {<Login/>} />
+      <Route path = 'admin'  element = {<AdminPage/>} />
       <Route path = 'signup'  element = {<Signup/>} />
       <Route path = 'contact'  element = {<Contact/>} />
       <Route path = 'nearest-health-care'  element = {<NearestHealthcare/>} />
