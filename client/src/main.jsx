@@ -11,9 +11,10 @@ import Signup from './components/SignUpPage.jsx'
 import NearestHealthcare from './components/NearestHealthcare';
 import UserFeedback from './components/UserFeedback.jsx';
 import AccessibilityFeature from './components/AccessibilityFeature.jsx';
+import Chatbot from './components/ChatBot.jsx';
 import RequestForm from './components/RequestForm.jsx';
 import AdminPage from './components/AdminPage.jsx';
-import Chatbot from './components/Chatbot';
+import Chatbot from './components/ChatBot.jsx';
 
 
 const router = createBrowserRouter(
