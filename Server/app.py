@@ -3,8 +3,16 @@ from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId  # To handle MongoDB's object IDs
+from transformers import T5Tokenizer, T5ForConditionalGeneration
+from flask_cors import CORS
+
+# Choose a suitable model; `flan-t5-large` for higher quality responses
+model_name = "google/flan-t5-large" 
+tokenizer = T5Tokenizer.from_pretrained(model_name)
+model = T5ForConditionalGeneration.from_pretrained(model_name)
 
 app = Flask(__name__)
+CORS(app)
 app.config['JWT_SECRET_KEY'] = '5e7e8854283ed2224272473d06c06e5883643b8c9a149e8af2bafd8a42d0f89aaf897a011d19d1d8fbe3d2c707b479dfbc4e639c421c36444f114912b7fefe4c81938974b4c592dfb43df8dbde86717fca2839dc1600217afbd0d8d3dc1c86334ccc8c4ca52a28266c99d1856d6c854a3d2e897803817e998bbdae825a4d4525f3e1f8e114e7937152594a1f60ed043b142d9f45e0409cf43a0422cae94f9da9134dbded6e37bc0267addac0bf7cafc3ad7a71d89561e219166e7cab3f05b4065024562cec6a20f9a60b9c1123752a468e1b9fb8eda5bccf92e228d8c57b64e3723e274341b6a62f11eb7082e1c105d94f6213a780c62c5646c8d19ad1b97418'  # Replace with a strong key in production
 app.config["MONGO_URI"] = "mongodb://localhost:27017"  # Set up MongoDB URI
 
@@ -61,5 +69,41 @@ def protected():
     user = mongo.db.users.find_one({"_id": ObjectId(current_user_id)})
 
     return jsonify({"user": {"username": user['username'], "role": user['role']}}), 200
+def get_disaster_advice(user_input):
+    # Define a structured prompt for serious, step-by-step advice
+    structured_prompt = f"Provide detailed, step-by-step safety instructions for a disaster situation, including preparation, immediate actions, and post-disaster advice: {user_input}"
+
+    # Encode the prompt
+    inputs = tokenizer.encode(structured_prompt, return_tensors="pt")
+
+    # Generate response with parameters to ensure seriousness and structure
+    outputs = model.generate(
+        inputs,
+        min_length = 60,
+        max_length=500,               # Increased max length for more detailed response
+        num_beams=10,                 # More beams for focused, structured output
+        do_sample = True,
+        no_repeat_ngram_size=3,       # Avoid repetitive n-grams for better flow
+        temperature=0.7,              # Moderate creativity with relevance
+        top_p=0.9,                    # Nucleus sampling for diverse yet structured output
+        early_stopping=True           # Stop when a complete response is generated
+    )
+
+    # Decode and return the response
+    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return response
+
+@app.route('/chat' , methods=['POST'])
+def chat():
+    # Get the input text from the user
+    user_input = request.json.get('text')
+    
+    # Get the disaster advice from the model
+    response = get_disaster_advice(user_input)
+    
+    # Return the response as JSON
+    return jsonify({"response": response})
+
 if __name__ == '__main__':
     app.run(debug=True)
+    
