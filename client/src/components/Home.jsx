@@ -1,9 +1,12 @@
+import { MapContext } from '@react-google-maps/api';
 import React from 'react'
+import MapComponent from './MapComponent';
 
 
 function Home(){
     return(
-        <h1>Home Content</h1>
+        // <MapComponent />
+        <h1>Home content</h1>
     )
 }
 
