@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.3",
     "axios": "^1.7.7",
+    "cors-anywhere": "^0.4.4",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^1.13.3",
     "plotly.js": "^2.35.2",

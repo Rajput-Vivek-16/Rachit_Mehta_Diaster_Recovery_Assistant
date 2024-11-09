@@ -80,7 +80,7 @@ const RequestList = ({ setTotalRequests, setTotalResponded }) => {
           />
           <button
             onClick={handleSendResponse}
-            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+            className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
           >
             Send Response
           </button>
