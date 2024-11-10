@@ -1,26 +1,30 @@
-// src/components/AdminPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import RequestList from './RequestList';
 
 const AdminPage = () => {
-  const [totalSupply, setTotalSupply] = useState(0);
-  const [totalDemand, setTotalDemand] = useState(0);
-  const [status, setStatus] = useState('');
+  const [totalSupplyRequired, setTotalSupplyRequired] = useState(25);
+  const [totalResourceAvailable, setTotalResourceAvailable] = useState(100);
+  const [status, setStatus] = useState('active');
   const [totalRequests, setTotalRequests] = useState(0);
   const [totalResponded, setTotalResponded] = useState(0);
 
   useEffect(() => {
-    // Fetch all necessary data for the dashboard from a single backend endpoint
+    // Fetch data from Flask backend
     axios.get('http://localhost:5000/predict_supplies')
       .then(response => {
-        console.log(data)
-        const data = response;
-        setTotalSupply(data['predicted_supplies']);
-        
+        console.log(response.data);  // Log the response to inspect it
+        setTotalSupplyRequired(response.data.predicted_supplies);  // Set the predicted supply value
       })
       .catch(error => console.error("Error fetching dashboard data:", error));
-  }, []);
+  }, []); // Empty dependency array ensures this only runs once on mount
+
+  const calculateSupply = () => {
+    // Placeholder for supply calculation logic
+    console.log('Calculating supply...');
+    // You can add your calculation logic here, for example:
+    setTotalSupplyRequired(totalSupplyRequired + 100); // Just an example, replace with your logic
+  };
 
   return (
     <div className="p-4 md:p-8 bg-gray-100 min-h-screen">
@@ -30,15 +34,14 @@ const AdminPage = () => {
         {/* First row: Supply and Demand */}
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">
           <h2 className="text-lg md:text-xl font-semibold">Supply</h2>
-          <p className="mt-2">Total Supply: {totalSupply}</p>
-          
-          <p>Total Demand: {totalDemand}</p>
-          {/* <button
-            onClick={calculateSupply}
-            className="mt-4 bg-red-500 text-white py-2 px-4 rounded w-full sm:w-auto"
+          <p className="mt-2">Total Supply Required: {totalSupplyRequired} kg</p>
+          <p>Total Resource Available: {totalResourceAvailable} kg</p>
+          <button
+            onClick={calculateSupply} // Now it will work
+            className="mt-4 bg-red-500 text-white p y-2 px-4 rounded w-full sm:w-auto"
           >
             Calculate Supply
-          </button> */}
+          </button>
         </div>
 
         <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg">

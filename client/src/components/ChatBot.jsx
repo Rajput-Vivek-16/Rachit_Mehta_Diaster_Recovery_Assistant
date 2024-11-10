@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Chatbot() {
+function ChatBot() {
   const [userInput, setUserInput] = useState('');
   const [conversation, setConversation] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -90,4 +90,4 @@ function Chatbot() {
   );
 }
   
-export default Chatbot;
+export default ChatBot;

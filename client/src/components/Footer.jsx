@@ -1,16 +1,22 @@
 import React from 'react'
-import {Link, NavLink} from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Footer() {
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Smooth scrolling effect
+        });
+    }
     return (
         <footer className="bg-white border-y">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
-                        <Link to="/" className="flex items-center">
+                        <Link to="/" className="flex items-center" onClick={handleClick}>
                             <img
-                                src="https://m.media-amazon.com/images/I/718XLB6HowL._SL1500_.jpg"
-                                className="mr-3 h-16"
+                                src="https://www.logotypes101.com/logos/418/FF0C04503CECE5D87EADA21266DCB50E/nexus.png"
+                                className="m-0 w-12 h-12" // Adjust width and height
                                 alt="Logo"
                             />
                         </Link>
@@ -20,12 +26,12 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <NavLink to="/" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
+                                    <NavLink to="/" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
                                         Home
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/alert" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
+                                    <NavLink to="/alert" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
                                         Alerts
                                     </NavLink>
                                 </li>
@@ -34,14 +40,14 @@ export default function Footer() {
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Quick Links</h2>
                             <ul className="text-gray-500 font-medium">
-                                <li className = "mb-4">
-                                    <NavLink to="/nearest-health-care" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
-                                            Nearest Health care
+                                <li className="mb-4">
+                                    <NavLink to="/nearest-health-care" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
+                                        Nearest Health care
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/userFeedBack" className = {({isActive})=>`${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
-                                            User Feedback
+                                    <NavLink to="/feedBack" className={({ isActive }) => `${isActive ? "text-orange-700" : "text-gray-700"} hover:focus:border-b  hover:border-red-500`}>
+                                        Give us Feedback
                                     </NavLink>
                                 </li>
                             </ul>
@@ -50,12 +56,12 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <Link to="#" className="hover:underline">
+                                    <Link to="" className="hover:underline">
                                         Privacy Policy
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="hover:underline">
+                                    <Link to="" className="hover:underline">
                                         Terms &amp; Conditions
                                     </Link>
                                 </li>
@@ -73,7 +79,7 @@ export default function Footer() {
                         . All Rights Reserved.
                     </span>
                     <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-                        <Link to="#" className="text-gray-500 hover:text-gray-900">
+                        <Link to="https://www.facebook.com/" target="_blank" className="text-gray-500 hover:text-gray-900">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
@@ -89,7 +95,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">Facebook page</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="https://www.discord.com/" target="_blank" className="text-gray-500">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
@@ -101,7 +107,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">Discord community</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="https://www.twitter.com/" className="text-gray-500">
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"

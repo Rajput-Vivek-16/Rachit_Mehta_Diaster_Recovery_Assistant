@@ -8,8 +8,8 @@ function ServiceSection() {
           <h1 className="text-4xl font-bold mb-4">Welcome to <p className='text-red-500 inline'>Disaster Nexus</p></h1>
           <p className="text-xl mb-6">Your real-time crisis communication platform</p>
           <div className="flex justify-center space-x-4">
-            <Link to="/signup" className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition transform hover:scale-105">
-              Get Started
+            <Link to="/chatbot" className="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition transform hover:scale-105">
+              Get Help
             </Link>
             <Link to="/request-form" className="px-6 py-2 border border-white text-black rounded bg-white hover:text-black transition transform hover:scale-105">
               Request Form
