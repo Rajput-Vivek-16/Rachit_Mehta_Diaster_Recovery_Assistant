@@ -14,6 +14,27 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
+// Define custom icons for danger and safe areas
+const dangerIcon = new L.Icon({
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-red.png',
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-red.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowUrl: markerShadow,
+  shadowSize: [41, 41],
+});
+
+const safeIcon = new L.Icon({
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-green.png',
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x-green.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowUrl: markerShadow,
+  shadowSize: [41, 41],
+});
+
 const AlertPage = () => {
   const [alerts, setAlerts] = useState([]);
   const [error, setError] = useState(null);
@@ -21,7 +42,7 @@ const AlertPage = () => {
 
   // Fetch disaster alerts from the GDACS API
   const fetchAlerts = async () => {
-    const url = 'https://cors-anywhere.herokuapp.com/https://www.gdacs.org/xml/rss.xml'; // CORS proxy added
+    const url = 'https://thingproxy.freeboard.io/fetch/https://www.gdacs.org/xml/rss.xml';
 
     try {
       const response = await fetch(url);
@@ -33,18 +54,30 @@ const AlertPage = () => {
       const xmlDoc = parser.parseFromString(data, 'text/xml');
       const items = xmlDoc.getElementsByTagName('item');
 
-      const alertsData = Array.from(items).map(item => ({
-        title: item.getElementsByTagName('title')[0]?.textContent || 'No Title',
-        description: item.getElementsByTagName('description')[0]?.textContent || 'No Description',
-        link: item.getElementsByTagName('link')[0]?.textContent || '#',
-        lat: parseFloat(item.getElementsByTagName('georss:point')[0]?.textContent.split(' ')[0]),
-        lon: parseFloat(item.getElementsByTagName('georss:point')[0]?.textContent.split(' ')[1]),
-      }));
+      const alertsData = Array.from(items).map(item => {
+        const title = item.getElementsByTagName('title')[0]?.textContent || 'No Title';
+        const description = item.getElementsByTagName('description')[0]?.textContent || 'No Description';
+        const link = item.getElementsByTagName('link')[0]?.textContent || '#';
+        const lat = parseFloat(item.getElementsByTagName('georss:point')[0]?.textContent.split(' ')[0]);
+        const lon = parseFloat(item.getElementsByTagName('georss:point')[0]?.textContent.split(' ')[1]);
+
+        // Determine if the area is "danger" or "safe" based on keywords
+        const isDanger = /(alert|warning|disaster|high|emergency|severe)/i.test(title + description);
+
+        return {
+          title,
+          description,
+          link,
+          lat,
+          lon,
+          isDanger,
+        };
+      });
 
       setAlerts(alertsData);
       setLoading(false);
     } catch (err) {
-      console.error("Error fetching alerts: ", err); // Logs more detailed error info
+      console.error("Error fetching alerts: ", err);
       setError(err);
       setLoading(false);
     }
@@ -86,7 +119,11 @@ const AlertPage = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {alerts.map((alert, index) => (
-            <Marker key={index} position={[alert.lat, alert.lon]}>
+            <Marker
+              key={index}
+              position={[alert.lat, alert.lon]}
+              icon={alert.isDanger ? dangerIcon : safeIcon}
+            >
               <Popup>
                 <strong>{alert.title}</strong><br />
                 {alert.description}

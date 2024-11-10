@@ -43,14 +43,6 @@ function Header(){
                     User Feedback
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to = "/accessibility-feature" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
-                  hover:text-orange-700 hover:focus:border-b  hover:border-red-500 duration-200 lg:p-0 py-2
-                  ${isActive ? "text-orange-700" : "text-gray-700"}`}>
-                    Accessibility Feature                  
-                </NavLink>
-                </li>
-        
               </ul>
             </div>
   
