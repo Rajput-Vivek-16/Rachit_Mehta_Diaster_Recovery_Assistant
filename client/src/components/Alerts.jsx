@@ -14,6 +14,21 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
+// Define custom icons for danger and safe areas
+const dangerIcon = L.divIcon({
+    html: '<div style="color: red; font-size: 24px;">&#x26A0;</div>', // A warning symbol (⚠️)
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    className: '' // Ensures no extra styles from Leaflet are applied
+  });
+  
+  const safeIcon = L.divIcon({
+    html: '<div style="color: green; font-size: 24px;">&#x2714;</div>', // A checkmark symbol (✔️)
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    className: '' // Ensures no extra styles from Leaflet are applied
+  });
+
 const AlertPage = () => {
   const [alerts, setAlerts] = useState([]);
   const [error, setError] = useState(null);
@@ -99,26 +114,25 @@ const AlertPage = () => {
     checkDangerZone();
   }, [userLocation, alerts]);
 
-  if (loading) return <div className="text-red-500 text-xl font-semibold" role="status" aria-live="polite">Loading...</div>;
-  if (error) return <div className="text-red-500 text-xl font-semibold" role="alert" aria-live="assertive">Error: {error.message}</div>;
+  if (loading) return <div className="flex items-center justify-center h-screen w-screen text-red-500 text-xl font-semibold" role="status" aria-live="polite">Loading...</div>;
+  if (error) return <div className="flex items-center justify-center h-screen w-screen text-red-500 text-xl font-semibold" role="alert" aria-live="assertive">Error: {error.message}</div>;
 
   return (
-    <div className="flex h-screen bg-white text-black overflow-hidden">
+    <div className="flex h-screen text-black">
       {/* Map Section */}
-      <div style={{ width: '35%' }} className="fixed h-full">
+      <div className="w-1/3 h-full relative">
         <MapContainer
           center={userLocation || [20, 0]}
           zoom={2}
-          style={{ height: '100%' }}
-          className="border-r border-gray-300"
-          aria-label="Interactive map showing disaster alerts"
+          style={{ height: '90vh', paddingTop: '5rem' }}
+          className="rounded-sm sm:rounded-md md:rounded-lg lg:rounded-xl xl:rounded-2xl"
         >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           />
           {alerts.map((alert, index) => (
-            <Marker key={index} position={[alert.lat, alert.lon]} aria-label={`Disaster alert at ${alert.title}`} role="alert">
+            <Marker key={index} position={[alert.lat, alert.lon]} icon={dangerIcon}>
               <Popup>
                 <strong>{alert.title}</strong><br />
                 {alert.description}
@@ -126,65 +140,65 @@ const AlertPage = () => {
             </Marker>
           ))}
           {userLocation && (
-            <Marker position={[userLocation.lat, userLocation.lon]} aria-label="Your location">
+            <Marker position={[userLocation.lat, userLocation.lon]} icon={safeIcon}>
               <Popup>Your Location</Popup>
             </Marker>
           )}
         </MapContainer>
         {isInDangerZone === 'red' && (
-          <div className="absolute top-0 left-0 w-full bg-red-600 text-white text-center p-4 font-bold" role="alert" aria-live="assertive">
+          <div className="absolute top-0 left-0 w-full bg-red-600 text-white text-center p-4 font-bold animate-pulse">
             Warning: You are in a Red Zone!
           </div>
         )}
       </div>
 
       {/* Alert Section */}
-      <div className="w-2/3 ml-auto h-full flex flex-col justify-between overflow-y-auto p-8">
-        <div className="mb-8">
+      <div className="w-2/3 p-8 overflow-y-auto flex flex-col justify-between">
+        <div>
           {isInDangerZone === 'red' ? (
-            <div className="text-red-600 text-xl font-semibold mb-4 text-center" role="alert" aria-live="assertive">
+            <div className="text-red-600 text-xl font-semibold mb-4 text-center animate-pulse">
               You are in a high-risk zone! Take immediate safety measures.
             </div>
           ) : isInDangerZone === 'danger' ? (
-            <div className="text-yellow-600 text-xl font-semibold mb-4 text-center" role="alert" aria-live="assertive">
+            <div className="text-yellow-600 text-xl font-semibold mb-4 text-center">
               Warning: You are near a disaster alert zone.
             </div>
           ) : (
-            <div className="text-green-600 text-xl font-semibold mb-4 text-center" role="status">
+            <div className="text-green-600 text-xl font-semibold mb-4 text-center">
               You are in a safe area.
             </div>
           )}
 
           {/* Chatbot Link Alert */}
-          <div className="bg-orange-500 text-white text-lg font-semibold p-3 mb-4 rounded-lg" aria-live="polite">
-            <a href="/chatbot" className="hover:underline" role="link" tabIndex="0">
+          <div className="bg-red-500 text-white text-lg font-semibold p-3 mb-6 rounded-lg hover:bg-red-600 transition duration-200 ease-in-out">
+            <a href="/chatbot" className="hover:underline">
               Need assistance? Click here to chat with our disaster response chatbot.
             </a>
           </div>
 
-          <h1 className="text-2xl font-bold mb-4 text-center" tabIndex="0">World Alerts</h1>
+          <h1 className="text-3xl font-bold mb-4 text-center">World Alerts</h1>
 
-          <ul className="list-disc pl-5" role="list">
+          <ul className="space-y-4">
             {alerts.map((alert, index) => (
-              <li key={index} className="my-4">
-                <a href={alert.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                  <strong>{alert.title}</strong>
+              <li key={index} className="bg-white rounded-lg shadow-md p-4 border-l-4 border-red-600 transition duration-200 ease-in-out transform hover:-translate-y-1 hover:shadow-lg">
+                <a href={alert.link} target="_blank" rel="noopener noreferrer" className="text-red-600 font-bold hover:underline">
+                  {alert.title}
                 </a>
-                <p>{alert.description}</p>
+                <p className="text-gray-700 mt-2">{alert.description}</p>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* Emergency Numbers Section (Bottom of the page) */}
-        <div className="bg-gray-100 p-4 rounded-lg mt-auto" role="contentinfo">
-          <h2 className="text-xl font-bold mb-2">Emergency Numbers</h2>
-          <ul className="list-disc pl-5">
-            <li>Fire Department: 101</li>
-            <li>Police Department: 100</li>
-            <li>Ambulance: 102</li>
-            <li>Disaster Response: 112</li>
-            <li>Local Emergency Services: 123</li>
+        {/* Emergency Numbers Section */}
+        <div className="bg-gray-100 p-4 rounded-lg mt-8 shadow-md">
+          <h2 className="text-2xl font-bold mb-2">Emergency Numbers</h2>
+          <ul className="list-disc pl-5 space-y-2 text-gray-800">
+            <li><strong>Fire Department:</strong> 101</li>
+            <li><strong>Police Department:</strong> 100</li>
+            <li><strong>Ambulance:</strong> 102</li>
+            <li><strong>Disaster Response:</strong> 112</li>
+            <li><strong>Local Emergency Services:</strong> 123</li>
           </ul>
         </div>
       </div>

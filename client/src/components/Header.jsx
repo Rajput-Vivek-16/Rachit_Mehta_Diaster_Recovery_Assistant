@@ -6,11 +6,12 @@ function Header(){
         <nav className='bg-white border-gray-200 px-4 lg:px-6 py-2 mx-auto max-w-screen-xl'>
           <div className="flex flex-wrap justify-between items-center">
             <Link to="/" className="flex items-center">
-              <img
-                src="https://m.media-amazon.com/images/I/718XLB6HowL._SL1500_.jpg"
-                className="mr-3 h-6"
-                alt="Logo"
-                />
+            <img
+  src="https://www.logotypes101.com/logos/418/FF0C04503CECE5D87EADA21266DCB50E/nexus.png"
+  className="m-0 w-12 h-12" // Adjust width and height
+  alt="Logo"
+/>
+
             </Link>
   
             <div className=" hidden lg:flex justify-between  items-center w-full lg:w-auto lg:order-1" id="mobile-menu-2">
@@ -37,20 +38,12 @@ function Header(){
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to = "/userfeedback" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
+                  <NavLink to = "/feedback" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
                   hover:text-orange-700 hover:focus:border-b  hover:border-red-500 duration-200 lg:p-0 py-2
                   ${isActive ? "text-orange-700" : "text-gray-700"}`}>
-                    User Feedback
+                    Give us Feedback
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to = "/accessibility-feature" className={({isActive}) => `block font-semibold lg:hover:bg-transparent
-                  hover:text-orange-700 hover:focus:border-b  hover:border-red-500 duration-200 lg:p-0 py-2
-                  ${isActive ? "text-orange-700" : "text-gray-700"}`}>
-                    Accessibility Feature                  
-                </NavLink>
-                </li>
-        
               </ul>
             </div>
   

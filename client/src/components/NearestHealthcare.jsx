@@ -100,8 +100,8 @@ const HospitalFinder = () => {
     popupAnchor: [0, -24],
   });
 
-  if (loading) return <div className="text-red-500 text-xl font-semibold">Loading...</div>;
-  if (error) return <div className="text-red-500 text-xl font-semibold">Error: {error.message}</div>;
+  if (loading) return <div className="flex items-center justify-center h-screen w-screen text-red-500 text-xl font-semibold">Loading...</div>;
+  if (error) return <div className="flex items-center justify-center h-screen w-screen text-red-500 text-xl font-semibold">Error: {error.message}</div>;
 
   return (
     <div className="text-white bg-gray-900 p-8 text-center">
