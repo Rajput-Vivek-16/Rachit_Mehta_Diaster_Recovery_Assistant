@@ -39,7 +39,7 @@ const AlertPage = () => {
   const redZoneThreshold = 10; // km
 
   const fetchAlerts = async () => {
-    const url = 'https://cors-anywhere.herokuapp.com/https://www.gdacs.org/xml/rss.xml';
+    const url = 'https://thingproxy.freeboard.io/fetch/https://www.gdacs.org/xml/rss.xml';
 
     try {
       const response = await fetch(url);
