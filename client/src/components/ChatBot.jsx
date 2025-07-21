@@ -28,8 +28,13 @@ function ChatBot() {
     setLoading(true);
 
     try {
-      // Send the user input to the Flask backend using Axios
-      const res = await axios.post('http://127.0.0.1:5000/chat', { text: newMessage.content });
+      // Determine the API URL based on environment
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? '/api/chat' 
+        : 'http://127.0.0.1:5000/api/chat';
+      
+      // Send the user input to the backend using Axios
+      const res = await axios.post(apiUrl, { text: newMessage.content });
       
       // Add response from backend to conversation
       const botResponse = { role: 'bot', content: res.data.response };
@@ -38,7 +43,7 @@ function ChatBot() {
       console.error('Error fetching response:', error);
       setConversation((prevConversation) => [
         ...prevConversation,
-        { role: 'bot', content: 'An error occurred while processing your request.' },
+        { role: 'bot', content: 'Sorry, I\'m having trouble connecting right now. Please try again later.' },
       ]);
     } finally {
       setLoading(false);
