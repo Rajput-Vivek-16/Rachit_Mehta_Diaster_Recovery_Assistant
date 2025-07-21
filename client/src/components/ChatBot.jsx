@@ -29,7 +29,8 @@ function ChatBot() {
 
     try {
       // Send the user input to the Flask backend using Axios
-      const res = await axios.post('http://127.0.0.1:5000/chat', { text: newMessage.content });
+      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:5000';
+      const res = await axios.post(`${backendUrl}/chat`, { text: newMessage.content });
       
       // Add response from backend to conversation
       const botResponse = { role: 'bot', content: res.data.response };
